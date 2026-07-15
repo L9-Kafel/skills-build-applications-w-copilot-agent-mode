@@ -1,8 +1,10 @@
 import app from './app.js';
-import { getApiBaseUrl } from './config/runtime.js';
 
 const port = Number(process.env.PORT ?? 8000);
-const apiBaseUrl = getApiBaseUrl(port);
+const codespaceName = process.env.CODESPACE_NAME;
+const apiBaseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : `http://localhost:${port}`;
 
 app.listen(port, () => {
   console.log(`Octofit backend listening on port ${port}`);
